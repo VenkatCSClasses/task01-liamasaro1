@@ -24,14 +24,14 @@ class BankAccountTest {
 
     @Test
     void isEmailValidTest(){
-        assertTrue(BankAccount.isEmailValid( "a@b.com"));   // valid email address
-        assertFalse( BankAccount.isEmailValid(""));         // empty string
-        assertFalse( BankAccount.isEmailValid("ab.com"));    // missing @ symbol
-        assertFalse(BankAccount.isEmailValid("a@bcdef")); //missing dot
-        assertFalse(BankAccount.isEmailValid("a@bcdef.")); //missing domain after dot
-        assertFalse(BankAccount.isEmailValid("a@b@..c")); //consecutive dots
-        assertFalse(BankAccount.isEmailValid("-abc.com")); //starts with invalid character
-        assertFalse(BankAccount.isEmailValid("abc @b.com")); //contains whitespace
+        assertTrue(BankAccount.isEmailValid( "a@b.com"));   // Equivalence Class: Valid email
+        assertFalse( BankAccount.isEmailValid(""));         //Equivalence Class: Empty input
+        assertFalse( BankAccount.isEmailValid("ab.com"));    // Equivalence Class: Missing @ symbol
+        assertFalse(BankAccount.isEmailValid("a@bcdef")); // Equivalence Class: Missing Domain suffix/dot
+        assertFalse(BankAccount.isEmailValid("a@bcdef.")); // Boundary Case: Dot at the end of domain
+        assertFalse(BankAccount.isEmailValid("a@b@..c")); // Equivalence Class: Invalid characters/consecutive dots
+        assertFalse(BankAccount.isEmailValid("-abc.com")); // Boundary Case: Prefix starts with a invalid character
+        assertFalse(BankAccount.isEmailValid("abc @b.com")); // Equivalence Class: Contains whitespace
         
     }
 
