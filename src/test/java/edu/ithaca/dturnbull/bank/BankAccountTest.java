@@ -8,9 +8,18 @@ class BankAccountTest {
 
     @Test
     void getBalanceTest() {
-        BankAccount bankAccount = new BankAccount("a@b.com", 200);
 
+        // Equivalence Class: Normal balance
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
         assertEquals(200, bankAccount.getBalance(), 0.001);
+
+        // Edge Case: Zero balance
+        BankAccount bankAccount2 = new BankAccount("z@h.com", 0);
+        assertEquals(0, bankAccount2.getBalance(), 0.001);
+
+        // Equivalence Class: Small decimal balance
+        BankAccount bankAccount3 = new BankAccount("v@l.com", .30);
+        assertEquals(.30, bankAccount3.getBalance(), 0.001);
     }
 
     @Test
@@ -30,7 +39,7 @@ class BankAccountTest {
         bankAccount2.withdraw(0);
         assertEquals(150, bankAccount2.getBalance(), 0.001);
         
-        // Floating point precision: repeated small withdrawals
+        // Equivalence class: floating point precision with repeated small withdrawals
         BankAccount bankAccount3 = new BankAccount("d@c.com", 1.0);
         for (int i = 0; i < 10; i++) {
             bankAccount3.withdraw(0.1);
