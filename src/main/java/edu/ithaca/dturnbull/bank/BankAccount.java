@@ -61,9 +61,12 @@ public class BankAccount {
         }
 
         // Prefix validation: Check for valid characters (alphanumeric, dots, underscores, hyphens)
-        // Basic check for special characters at the start
-        if (!Character.isLetterOrDigit(prefix.charAt(0))) {
-            return false;
+        // Basic check for special characters in the prefix
+        
+        for(int i = 0; i < prefix.length(); i++){
+            char c = prefix.charAt(i);
+            if(!Character.isLetterOrDigit(c))
+                return false;
         }
 
         // Domain validation: Must contain a dot, and the dot cannot be at the start or end

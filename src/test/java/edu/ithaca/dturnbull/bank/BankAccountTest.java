@@ -33,6 +33,7 @@ class BankAccountTest {
         assertFalse(BankAccount.isEmailValid("a@b@..c")); // Equivalence Class: Invalid characters/consecutive dots
         assertFalse(BankAccount.isEmailValid("abc_@abc.com")); // Equivalence Class: Invalid character in prefix
         assertFalse(BankAccount.isEmailValid("-abc.com")); // Boundary Case: Prefix starts with a invalid character
+        assertFalse(BankAccount.isEmailValid("ab_c@abc.com")); // Equivalence Class: Invalid character in prefix
         assertFalse(BankAccount.isEmailValid("@abc.com")); // Boundary Case: Empty prefix
         assertFalse(BankAccount.isEmailValid("abc@")); // Boundary Case: Empty domain
         assertFalse(BankAccount.isEmailValid(".abc@abc.com")); // Boundary Case: Prefix starts with a dot
