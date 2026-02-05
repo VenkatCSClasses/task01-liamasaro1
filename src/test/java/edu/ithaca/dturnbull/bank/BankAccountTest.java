@@ -90,4 +90,12 @@ class BankAccountTest {
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
     }
 
+    @Test
+    void isAmountValidTest(){
+        BankAccount bankAccount = new BankAccount("a@b.com", 200);
+        assertTrue(BankAccount.isAmountValid(0)); // Boundary Case: Zero amount 
+        // Test more thna 2 deicmal places, should be false
+        // Test all other valid cases
+    }
+
 }
