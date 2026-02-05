@@ -71,6 +71,70 @@ class BankAccountTest {
     }
 
     @Test
+    void depositTest(){
+        BankAccount bankAccount = new BankAccount("happy@abc.com", 250);
+
+        // Valid deposit- normal case
+        bankAccount.deposit(100);;
+        assertEquals(350, bankAccount.getBalance(), 0.001);
+
+        // Equivalence Class: deposit small amount
+        bankAccount.deposit(1);
+        assertEquals(351, bankAccount.getBalance(), 0.001);
+
+        // Exception: negative deposit
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-50));
+
+        // Exception: deposit with more than 2 decimal places
+        assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(50.4568));
+
+        // Equivalence class: small deciamal deposit
+        bankAccount.deposit(0.75);
+        assertEquals(351.75, bankAccount.getBalance(), 0.001);
+
+        // Equivalence class: deposit very large amount
+        BankAccount bankAccount2 = new BankAccount("liam@ithaca.com", 1);
+        bankAccount2.deposit(10000.99);
+        assertEquals(10001.99, bankAccount2.getBalance(), 0.001);
+
+        // Edge Case: deposit zero
+        assertThrows(IllegalArgumentException.class, () -> bankAccount2.deposit(0));
+    }
+
+    @Test
+    void transferTest() throws InsufficientFundsException{
+        BankAccount fromAccount = new BankAccount("liam@ithaca.edu", 500);
+        BankAccount toAccount = new BankAccount("abc@def.net", 200);
+
+        // Valid transfer- normal case
+        fromAccount.transfer(toAccount, 150);
+        assertEquals(350, fromAccount.getBalance(), 0.001);
+        assertEquals(350, toAccount.getBalance(), 0.001);
+
+        // Exception: insufficient funds
+        assertThrows(InsufficientFundsException.class, () -> fromAccount.transfer(toAccount,350.01));
+
+        // Exception: negative transfer
+        assertThrows(IllegalArgumentException.class, () -> fromAccount.transfer(toAccount,-20));
+
+        // Exception: transfer with more than 2 decimal places
+        assertThrows(IllegalArgumentException.class, () -> fromAccount.transfer(toAccount,100.5678));
+
+        // Edge Case: transfer entire balance
+        fromAccount.transfer(toAccount, 350);
+        assertEquals(0, fromAccount.getBalance(), 0.001);
+        assertEquals(700, toAccount.getBalance(), 0.001);
+
+        // Edge Case: transfer zero
+        assertThrows(IllegalArgumentException.class, () -> toAccount.transfer(fromAccount,0));
+
+        // Equivalence Class: small decimal transfer
+        toAccount.transfer(fromAccount, 0.75);
+        assertEquals(0.75, fromAccount.getBalance(), 0.001);
+        assertEquals(699.25, toAccount.getBalance(), 0.001);
+    }
+
+    @Test
     void isEmailValidTest(){
         assertTrue(BankAccount.isEmailValid( "a@b.com"));   // Equivalence Class: Valid email
         assertFalse(BankAccount.isEmailValid(null)); //Boundary case: Null input
@@ -109,7 +173,7 @@ class BankAccountTest {
     @Test
     void isAmountValidTest(){
 
-        // Boundary Case: Valid zero amount 
+        // Boundary Case: Invalid zero amount 
         assertTrue(BankAccount.isAmountValid(0)); 
 
         // Equivalence Class: more thna 2 deicmimal places, should be false
