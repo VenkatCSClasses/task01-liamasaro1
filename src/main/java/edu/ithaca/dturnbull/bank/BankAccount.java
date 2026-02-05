@@ -89,6 +89,10 @@ public class BankAccount {
         
     }
 
+    /**
+     * @post returns true if email is valid, false otherwise
+     * @param email
+     */
 
     public static boolean isEmailValid(String email){
         // Check if the string is null or empty
