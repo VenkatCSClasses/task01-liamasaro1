@@ -92,10 +92,48 @@ class BankAccountTest {
 
     @Test
     void isAmountValidTest(){
-        BankAccount bankAccount = new BankAccount("a@b.com", 200);
-        assertTrue(BankAccount.isAmountValid(0)); // Boundary Case: Zero amount 
-        // Test more thna 2 deicmal places, should be false
-        // Test all other valid cases
+
+        // Boundary Case: Valid zero amount 
+        assertTrue(BankAccount.isAmountValid(0)); 
+
+        // Equivalence Class: more thna 2 deicmimal places, should be false
+        assertFalse(BankAccount.isAmountValid(30.876534));
+
+        // Boundary Case: valid amount with exactly two decimal places
+        assertTrue(BankAccount.isAmountValid(100.67));
+
+        // Equivalence Class: valid amount with one decimal place
+        assertTrue(BankAccount.isAmountValid(1025.5));
+
+        // Equivalence Class: negative amount
+        assertFalse(BankAccount.isAmountValid(-50));
+
+        // Equivalence Class: valid amount with no decimal places
+        assertTrue(BankAccount.isAmountValid(75));
+
+        // Equivalence Class: valid amount with no decimal places, big amount
+        assertTrue(BankAccount.isAmountValid(9999));
+
+        // Equivalence class: valid really small amount
+        assertTrue(BankAccount.isAmountValid(0.02));
+
+        // Equivalence class: valid really big amount
+        assertTrue(BankAccount.isAmountValid(1000000.93));
+
+        // Equivalence class: valid amount with many trailing zeros, should be true
+        assertTrue(BankAccount.isAmountValid(45.55000000)); 
+
+        // Equivalence class: valid amount with many trailing zeros, small amount
+        assertTrue(BankAccount.isAmountValid(0.1000000));
+
+        // Equivalence class: negative amount 
+        assertFalse(BankAccount.isAmountValid(-5000));
+
+        // Equivalence class: negative amount with many decimal places
+        assertFalse(BankAccount.isAmountValid(-25.793638));
+
+
+
     }
 
 }

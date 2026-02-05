@@ -91,15 +91,42 @@ public class BankAccount {
 
     public static boolean isAmountValid(double amount){
 
+        // Positive amount check
+        if(amount >= 0){
+            // String representation of amount
+            String amountStr = Double.toString(amount);
+            // Check for decimal place
+            if(amountStr.contains(".")){
+                // String representation of decimal part (exclusive of the decimal point)
+                String decimalPart = amountStr.substring(amountStr.indexOf(".") + 1);
 
-        //if(amount > 0 && amount has two decimal places or less) {
-        //   return true;   
-        // }
-        // otherwise return false
-        
-        // Placeholder for potential future validation logic so method doesn't return an error
-        return false; 
+                // If there are 2 or more digits after decimal point
+                if(decimalPart.length() > 2)
+                {
+                    // Loop through each digit after decimal point
+                    for(int i = 0; i < decimalPart.length(); i++) {
+
+                        // Get digit at index i
+                        char c = decimalPart.charAt(i);
+
+                        //if any digit is not 0 (not trailing zeros) return false
+                        if(c != '0')
+                            return false;
+                    }
+                    // Trailing zeros only, valid amount
+                    return true;
+                }
+                else {
+                    // 2 or fewer digits after decimal point, valid amount
+                    return true;
+                }
+            }
+
+            //Valid positive amount with no decimal places
+            return true;
+        }
+
+        // Negative amount
+        return false;
     }
-
-
     }
