@@ -59,6 +59,15 @@ class BankAccountTest {
 
         // Exception: negative withdrawal
         assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-50));
+
+        // Exception: negative withdrawal
+        BankAccount bankAccount5 = new BankAccount("abc@def.com", 500);
+        assertThrows(IllegalArgumentException.class, () -> bankAccount5.withdraw(-30));
+
+        // Exception: withdrawal with more than 2 decimal places
+        assertThrows(IllegalArgumentException.class, () -> bankAccount5.withdraw(300.6789));
+
+
     }
 
     @Test
@@ -88,6 +97,13 @@ class BankAccountTest {
         assertEquals(200, bankAccount.getBalance(), 0.001);
         //check for exception thrown correctly
         assertThrows(IllegalArgumentException.class, ()-> new BankAccount("", 100));
+
+        // Exception: Invalid Account creation with starting balanca that has more than 2 decinal places
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("a@bcd.com",200.6578));
+        
+        // Exception: Invalid Account creation with negative starting balance
+        assertThrows(IllegalArgumentException.class, ()-> new BankAccount("d@ef.net",-40));
+    
     }
 
     @Test
@@ -128,12 +144,5 @@ class BankAccountTest {
 
         // Equivalence class: negative amount 
         assertFalse(BankAccount.isAmountValid(-5000));
-
-        // Equivalence class: negative amount with many decimal places
-        assertFalse(BankAccount.isAmountValid(-25.793638));
-
-
-
     }
-
 }
